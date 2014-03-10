@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Archives - {{ site.configs.title or site.title }} {% endblock %}
+{% set total_posts = get_posts(limit=300, sort='desc') %}
+{% if request.args.use == 'tags' %}
+    {% set entries = group(total_posts, 'tags') %}
+{% else %}
+    {% set entries = group(total_posts, 'date:year', reverse=True) %}
+{% endif %}
+{% block content %}
+<div class="row">
+    <div class="span8">
+      <h2>Archives</h2>
+	  {% for year, posts in entries %}
+        <ul class="listing">
+       {% for post in posts %}
+            <li class="listing-item">
+                <span class="date">{{ post.date | date("%Y-%m-%d") }}</span>
+                <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+            </li>
+        {% endfor %}    
+        </ul>
+		 {% endfor %}
+    </div>  	
+  </div>
+{% endblock %}
+
+
+
