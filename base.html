@@ -10,37 +10,47 @@
     <link href="/template/css/bootstrap.min.css" rel="stylesheet">
     <link href="/template/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="/template/css/bootswatch.css" rel="stylesheet">
-	<link href="/feed" type="application/atom+xml" rel="alternate" title="{{ site.configs.title or site.title }} RSS Feed" />
-	<link rel="author" href="https://plus.google.com/112302252902540661821/" />
-	<link rel="icon" type="image/gif" href="http://files.xxdns.net/favicon.gif">
+  <link href="/feed" type="application/atom+xml" rel="alternate" title="{{ site.configs.title or site.title }} RSS Feed" />
+  <link rel="author" href="https://plus.google.com/112302252902540661821/" />
+  <link rel="icon" type="image/gif" href="http://files.xxdns.net/favicon.gif">
     <link rel="shortcut icon" href="http://files.xxdns.net/favicon.ico"  type="image/x-icon" />
   </head>
   <body class="preview" id="top" data-spy="scroll" data-target=".subnav" data-offset="80">
- <div class="navbar navbar-inverse">
-   <div class="navbar-header">
-     <!-- <div class="container"> -->
-       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+ <div class="navbar navbar-inverse navbar-fixed-top">
+   <div class="navbar-inner">
+        <div class="container">
+           <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
-      </button>
-       <a class="navbar-brand" href="/">{{ site.configs.title or site.title }}</a>
-       <div class="nav-collapse collapse" id="main-menu">
-        <ul class="nav" id="main-menu-left">
-	{% if has('about.md') %}
-	<li><a href="/about.md">About</a></li>
-	{% endif %}
+    </button>
+       <a class="navbar-brand" href="/">{{site.configs.title or site.title}}</a>
+     </div>
+         <div class="navbar-collapse collapse navbar-inverse-collapse">
+        <ul class="nav navbar-nav">
     <li><a href="/archive">Archives</a></li>
-	{% if has('search.md') %}
-	<li><a href="/search.md">Search</a></li>
-	{% endif %}	
-	{% if has('links.md') %}
+  {% if has('links.md') %}
     <li><a href="/links.md">Links</a></li>
-	{% endif %}	
-	<li class="link feed"><a href="/feed">feed</a></li>
+  {% endif %} 
+  {% set categories = get_data(type='folder', level=[1,2], min_posts_count=1,with_page=False)%}
+  {% if categories %}
+  <li class="dropdown">
+    <a href="/category" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      {% for category in  sorted_by_position(categories) %}
+  <li><a href="/category/{{ category.path }}" title="posts in {{category.title}}">{{category.title}}</a></li>
+  {% endfor %}
+    </ul>
+  </li>
+  {% endif %}
+    {% if has('about.md') %}
+  <li><a href="/about.md">About</a></li>
+  {% endif %}
+  <li class="link feed"><a href="/feed">feed</a></li>
         </ul>
        </div>
-     <!-- </div> -->
+     </div>
    </div>
  </div>
 
@@ -56,19 +66,18 @@
         <div class="links">
           <a href="/feed">RSS</a>
           {% if site.configs['twitter'] %}
-			<a href="https://twitter.com/{{ site.configs['twitter'] }}">Twitter</a>
-			{% endif %}
-			{% if site.configs['github'] %}
-			<a href="https://github.com/{{ site.configs['github'] }}">GitHub</a>
-			{% endif %}
+      <a href="https://twitter.com/{{ site.configs['twitter'] }}">Twitter</a>
+      {% endif %}
+      {% if site.configs['github'] %}
+      <a href="https://github.com/{{ site.configs['github'] }}">GitHub</a>
+      {% endif %}
         </div>
         Powered by <a href="http://www.farbox.com/">FarBox</a>. <a href="/template">Clone Template</a><br/>
         Based on <a href="http://twitter.github.com/bootstrap/">Bootstrap</a> and <a href="http://bootswatch.com/">Bootswatch</a> (<a href="https://gitcafe.com/lanbing/CodeNut/tree/master/Farbox/ubuntu4farbox">Source Code</a>).
       </footer>
 
     </div><!-- /container -->
-	<script src="/template/js/jquery.min.js"></script>
-    <script src="/template/js/jquery.smooth-scroll.min.js"></script>
+    <script src="/template/js/jquery-1.10.2.min.js"></script>
     <script src="/template/js/bootstrap.min.js"></script>
     <script src="/template/js/bootswatch.js"></script>
   </body>
