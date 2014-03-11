@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}{{ category.title }} - {{ site.configs.title or site.title }}{% endblock %}
 {% block content %}
-    {% set posts = get_data(path=category.title, limit=site.configs.post_per_page,pager_name="category") %}
-    <h2>{{category.title}}</h2>
+    {% set posts = get_data(path=category.title, limit=50,pager_name="category") %}
+    <h2>category: {{category.title}}</h2>
         <ul class="listing">
        {% for post in posts %}
             <li class="listing-item">

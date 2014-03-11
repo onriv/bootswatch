@@ -1,10 +1,27 @@
 {% extends 'base.html' %}
 {% block title %}{{ site.configs.title or site.title }}{% endblock %}
-{% block content %}        
+{% block content %}
+ <ul class="nav nav-tabs" style="margin-bottom: 15px; float: right">
+  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+  <li><a href="#test-page" data-toggle="tab">test page</a></li>
+</ul>
+<div id="myTabContent" class="tab-content" style="padding-top: 45px">
+  <div class="tab-pane fade active in" id="home">
+	{% set keys = request.args.get('s')%}
+	{% if keys %}
+	{% set posts = get_data( limit=site.configs.post_per_page,pager_name="keywords", keywords = keys) %}
+	{% else %}
 	{% set posts = get_data(limit=site.configs.post_per_page,pager_name="index") %}
+	{% endif %}
   {% if posts %}
   {% include "post_list.html" %}
   {% endif %}
   {% set paginator=get_paginator("index") %}
   {% include "navigation.html" %}
+   </div>
+   <div class="tab-pane fade" id="test-page">
+   	<h2 class="text-info">这是一个测试页面。</h2>
+   </div>
+</div> 
+
 {% endblock content %}
