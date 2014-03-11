@@ -7,8 +7,6 @@
     {% set entries = group(total_posts, 'date:year', reverse=True) %}
 {% endif %}
 {% block content %}
-<div class="row">
-    <div class="span8">
       <h2>Archives</h2>
 	  {% for year, posts in entries %}
         <ul class="listing">
@@ -20,8 +18,6 @@
         {% endfor %}    
         </ul>
 		 {% endfor %}
-    </div>  	
-  </div>
 {% endblock %}
 
 

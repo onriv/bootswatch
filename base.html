@@ -7,8 +7,8 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link href="/template/css/code-highlight.css" rel="stylesheet">
     <link href="/template/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/template/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="/template/css/bootswatch.css" rel="stylesheet">
   <link href="/feed" type="application/atom+xml" rel="alternate" title="{{ site.configs.title or site.title }} RSS Feed" />
   <link rel="author" href="https://plus.google.com/112302252902540661821/" />
@@ -49,14 +49,23 @@
   {% endif %}
   <li class="link feed"><a href="/feed">feed</a></li>
         </ul>
+        <form class="navbar-form navbar-left" action="/">
+      <input type="text" class="form-control col-lg-8" placeholder="Search" name="s">
+    </form>
        </div>
      </div>
    </div>
  </div>
 
     <div class="container">
-  {% block content %}
-    {% endblock %}
+      <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+        {% block content %}
+        {% endblock content %}
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        {% include 'sidebar.html' %}
+      </div>
+      <div class="col-xs-12">
 <br><br><br><br>
      <!-- Footer
       ================================================== -->
@@ -75,8 +84,38 @@
         Powered by <a href="http://www.farbox.com/">FarBox</a>. <a href="/template">Clone Template</a><br/>
         Based on <a href="http://twitter.github.com/bootstrap/">Bootstrap</a> and <a href="http://bootswatch.com/">Bootswatch</a> (<a href="https://gitcafe.com/lanbing/CodeNut/tree/master/Farbox/ubuntu4farbox">Source Code</a>).
       </footer>
-
+      </div>
     </div><!-- /container -->
+    {% if site.configs.duoshuo %}
+    <script type="text/javascript">
+            var duoshuoQuery = {short_name:"{{ site.configs.duoshuo }}"};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = '{{site.url}}/t/js/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+    </script>
+    {% endif %}
+    {% if site.configs.mathjax == "on" %}
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/SVG"],
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"],["```mathjax","```"] ],
+          processEscapes: true},
+        "HTML-CSS": { availableFonts: ["TeX"], linebreaks: {automatic: true}},
+        TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}},
+        <!-- "HTML-CSS": {linebreaks: {automatic: true}}, -->
+        SVG: {linebreaks: {automatic: true}}
+    });
+    </script>
+    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">    
+    </script>
+    {% endif %}
     <script src="/template/js/jquery-1.10.2.min.js"></script>
     <script src="/template/js/bootstrap.min.js"></script>
     <script src="/template/js/bootswatch.js"></script>
