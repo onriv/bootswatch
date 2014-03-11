@@ -92,30 +92,27 @@
             (function() {
                 var ds = document.createElement('script');
                 ds.type = 'text/javascript';ds.async = true;
-                ds.src = '{{site.url}}/t/js/embed.js';
+                ds.src = 'http://csh.farbox.com/template/js/embed.js';
                 ds.charset = 'UTF-8';
                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
             })();
     </script>
     {% endif %}
-    {% if site.configs.mathjax == "on" %}
     <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        extensions: ["tex2jax.js"],
-        jax: ["input/TeX", "output/SVG"],
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-          displayMath: [ ['$$','$$'], ["\\[","\\]"],["```mathjax","```"] ],
-          processEscapes: true},
-        "HTML-CSS": { availableFonts: ["TeX"], linebreaks: {automatic: true}},
-        TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}},
-        <!-- "HTML-CSS": {linebreaks: {automatic: true}}, -->
-        SVG: {linebreaks: {automatic: true}}
-    });
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js","http://sonoisa.github.io/xyjax_ext/fp.js"],
+    //                         ^^^^^load fp.js
+    jax: ["input/TeX","output/HTML-CSS"],
+    "HTML-CSS": {
+      styles: {".MathJax_Preview": {visibility: "hidden"}}
+    },
+    tex2jax: {inlineMath: [["$","$"],["\\[","\\]"]]},
+    TeX: {extensions: ["AMSmath.js","AMSsymbols.js","http://sonoisa.github.io/xyjax_ext/xypic.js"]}
+    //                                               ^^^^^^^^load xypic.js
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>   
     </script>
-    <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">    
-    </script>
-    {% endif %}
     <script src="/template/js/jquery-1.10.2.min.js"></script>
     <script src="/template/js/bootstrap.min.js"></script>
     <script src="/template/js/bootswatch.js"></script>
