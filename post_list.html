@@ -1,0 +1,5 @@
+{% for post in posts %}
+      <h2><a href="{{post.url}}">{{ post.title }}</a></h2>
+       {% set content = post.content|limit(200)  %}
+                    {{ content.no_pic }}
+<hr>{% endfor %}

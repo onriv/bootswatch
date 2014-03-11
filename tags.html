@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}{{ tags | join(' ') }} - {{ site.configs.title or site.title }}{% endblock %}
+{% block content %}
+    {% set posts = get_data(limit=50,pager_name="tags",tags=tags) %}
+    <h2>tag: {{tags | join(' ')}}</h2>
+        <ul class="listing">
+       {% for post in posts %}
+            <li class="listing-item">
+                <span class="date">{{ post.date | date("%Y-%m-%d") }}</span>
+                <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+            </li>
+        {% endfor %}    
+        </ul> 
+{% endblock %}

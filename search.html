@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% set keys = request.args.get('s')%}
+{% block title %}{{keys}} - {{site.title}}{% endblock %}
+{% block content %}        
+	{% set posts = get_data( limit=site.configs.post_per_page,pager_name="keywords", keywords = keys) %}
+  {% if posts %}
+  {% include "post_list.html" %}
+  {% endif %}
+  {% set paginator=get_paginator("keywords") %}
+  {% include "navigation.html" %}
+{% endblock content %}

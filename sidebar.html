@@ -1,0 +1,74 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Latest Posts</h3>
+  </div>
+  <div class="panel-body">
+    <ul class="list-group">
+        {% set rposts= get_data('/',type = 'post', limit = site.configs.rpost ,with_page=False) %}
+        {% for post in rposts %}
+  <li class="list-group-item">
+    <a href="{{post.url}}" title="{{post.title}}">{{post.title}}</a>
+  </li>
+  {% endfor %}
+</ul>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+  <li class="active"><a href="#categories" data-toggle="tab">Categories</a></li>
+  <li><a href="#tags" data-toggle="tab">Tags</a></li>
+  <li><a href="#archives" data-toggle="tab">Archives</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade active in" id="categories">
+    <ul class="list-group">
+      {% for category in  sorted_by_position(categories) %}
+  <li class="list-group-item">
+    <span class="badge">{{get_data(path=category.title,return_count=True)}}</span>
+    <a href="/category/{{ category.path }}" title="posts in {{category.title}}">{{category.title}}</a>
+  </li>
+  {% endfor %}
+</ul>
+  </div>
+  <div class="tab-pane fade" id="tags">
+    <ul class="nav nav-pills">
+      {% for tag_name, tag_count in site.tags %}
+  <li>
+    <a href="/tags/{{tag_name}}">{{tag_name}} <span class="badge">{{tag_count}}</span></a>
+  </li>
+  {% endfor %}
+</ul>
+  </div>
+  <div class="tab-pane fade" id="archives">
+    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+  </div>
+  </div>
+</div>
+  </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Comments</h3>
+  </div>
+  <div class="panel-body">
+    <ul class="list-group ds-recent-comments" data-show-title="0" data-show-time="1" data-show-avatars="0"></ul>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Links</h3>
+  </div>
+  <div class="panel-body">
+<ul class="list-group">
+  <li class="list-group-item">
+    <a href="http://sher-astro1.farbox.com">Single Fermion</a>
+  </li>
+    <li class="list-group-item">
+    <a href="http://www.huapanda.net">二丁目</a>
+  </li>
+</ul>  
+  </div>
+</div>
