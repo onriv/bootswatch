@@ -2,4 +2,14 @@
       <h2><a href="{{post.url}}">{{ post.title }}</a></h2>
        {% set content = post.content|limit(200)  %}
                     {{ content.no_pic }}
+     {% set category = post.full_path.split('/') %}
+     {% if category[2] %}
+     {% set category_title = category[1] %}
+     {% set category_path = category[1] %}
+     {% else %}
+     {% set category_title = "未分类" %}
+     {% set category_path = "/" %}
+     {% endif %}
+<p class="text-info" align="right">Date: {{ post.date | date('%Y-%m-%d') }}; Category: <a href="/category/{{category_path}}">{{category_title}}</a>; Tags: {% if post.tags %}{% set current_tag = post.tags%} {%for tag in current_tag[:-1]%}<a href="/tags/{{tag}}">{{tag}}</a>, {%endfor%}<a href="/tags/{{current_tag[-1]}}">{{current_tag[-1]}}</a> {%endif%} 
+      </p>       
 <hr>{% endfor %}

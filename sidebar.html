@@ -19,7 +19,7 @@
 <ul class="nav nav-tabs" style="margin-bottom: 15px;">
   <li class="active"><a href="#categories" data-toggle="tab">Categories</a></li>
   <li><a href="#tags" data-toggle="tab">Tags</a></li>
-  <li><a href="#archives" data-toggle="tab">Archives</a></li>
+<!--   <li><a href="#archives" data-toggle="tab">Archives</a></li> -->
 </ul>
 <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade active in" id="categories">
@@ -41,9 +41,9 @@
   {% endfor %}
 </ul>
   </div>
-  <div class="tab-pane fade" id="archives">
+<!--   <div class="tab-pane fade" id="archives">
     <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
-  </div>
+  </div> -->
   </div>
 </div>
   </div>
@@ -58,10 +58,13 @@
 </div>
 
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Links</h3>
-  </div>
   <div class="panel-body">
+    <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+<li class="active"><a href="#Links" data-toggle="tab">Links</a></li>
+  <li><a href="#Meta" data-toggle="tab">Meta</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade active in" id="Links">
 <ul class="list-group">
   <li class="list-group-item">
     <a href="http://sher-astro1.farbox.com">Single Fermion</a>
@@ -69,6 +72,21 @@
     <li class="list-group-item">
     <a href="http://www.huapanda.net">二丁目</a>
   </li>
-</ul>  
+</ul>
+</div>
+<div class="tab-pane fade" id="Meta">
+  <ul class="list-group">
+  <li class="list-group-item">
+    <a href="{{site.url}}/admin">Admin</a>
+  </li>
+    <li class="list-group-item">
+    <a href="{{site.url}}/admin/editor">Editor</a>
+  </li>
+  <li class="list-group-item"><a href="{{site.url}}/admin/code">Code</a></li>
+  <li class="list-group-item"><a href="{{site.url}}/statistics">Statistics</a></li>
+  <li class="list-group-item"><a href="http://beta.farbox.com">Farbox</a></li>
+</ul>
+</div>
+</div> 
   </div>
 </div>

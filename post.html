@@ -3,15 +3,39 @@
 {% block content %}
       <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
       {{ post| auto_content }}
-	  <p align="left">posted in {{ post.date | date('%Y-%m-%d') }}
+     {% set category = post.full_path.split('/') %}
+     {% if category[2] %}
+     {% set category_title = category[1] %}
+     {% set category_path = category[1] %}
+     {% else %}
+     {% set category_title = "未分类" %}
+     {% set category_path = "/" %}
+     {% endif %}
+	  <p class="text-info" align="right">Date: {{ post.date | date('%Y-%m-%d') }}; Category: <a href="/category/{{category_path}}">{{category_title}}</a>; Tags: {% if post.tags %}{% set current_tag = post.tags%} {%for tag in current_tag[:-1]%}<a href="/tags/{{tag}}">{{tag}}</a>, {%endfor%}<a href="/tags/{{current_tag[-1]}}">{{current_tag[-1]}}</a> {%endif%} 
       </p>
-      <ul class="nav nav-tabs" style="margin-bottom: 15px; float: right">
+      <ul class="pager">
+    {% if next_one %}<li class="next"><a href="{{next_one.url}}">Older &rarr;</a></li>{% endif %}
+    {% if pre_one %}<li class="previous"><a href="{{pre_one.url}}">&larr; Newer</a></li>{% endif %}
+</ul>
+
+      <ul class="nav nav-tabs" style="margin-bottom: 15px;">
   <li class="active"><a href="#comments" data-toggle="tab">Comments</a></li>
   <li><a href="#related-posts" data-toggle="tab">Related Posts</a></li>
 </ul>
 <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade active in" id="comments">
     <section><div class="ds-thread" id="comments"></div> </section>
+  </div>
+  <div class="tab-pane fade" id="related-posts">
+    {% set posts = get_data(path=category_title, limit=6,with_page=False) %}
+<ul class="list-group">
+      {% for post in  posts %}
+  <li class="list-group-item">
+    <span class="badge"></span>
+    <a href="/post/{{ post.url }}" title="{{post.title}}">{{post.title}}</a>
+  </li>
+  {% endfor %}
+</ul>    
   </div>
 </div>   
 {% endblock %}
