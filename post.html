@@ -36,7 +36,7 @@
       {% for post in  posts %}
   <li class="list-group-item">
     <span class="badge"></span>
-    <a href="/post/{{ post.url }}" title="{{post.title}}">{{post.title}}</a>
+    <a href="{{ post.url }}" title="{{post.title}}">{{post.title}}</a>
   </li>
   {% endfor %}
 </ul>    
