@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 {% block title %}{{ site.configs.title or site.title }}{% endblock %}
+{% block head_block %}
+<meta name="Keywords" content="{{site.configs.keywords}},{{site.title}}">
+<meta name="Description" content="{{site.configs.description}}-{{site.title}}">
+{% endblock %}
 {% block content %}
- <ul class="nav nav-tabs" style="margin-bottom: 15px; float: right">
+ <ul class="nav nav-tabs" style="margin-bottom: 15px;">
   <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-  <li><a href="#test-page" data-toggle="tab">test page</a></li>
+  {% set inline_pages = get_data(type='post', status = 'inline', limit=5, with_page = False, sort='position') %}
+  {% for inline_page in inline_pages %}
+  <li><a href="#{{inline_page.url_path}}" data-toggle="tab">{{inline_page.title}}</a></li>
+  {% endfor %}
+   {% set pages = get_data(type='post', status = 'page', with_page = False, sort='position') %}
 </ul>
-<div id="myTabContent" class="tab-content" style="padding-top: 45px">
+<div id="myTabContent" class="tab-content">
   <div class="tab-pane fade active in" id="home">
 	{% set keys = request.args.get('s')%}
 	{% if keys %}
@@ -19,9 +27,12 @@
   {% set paginator=get_paginator("index") %}
   {% include "navigation.html" %}
    </div>
-   <div class="tab-pane fade" id="test-page">
-   	<h2 class="text-info">这是一个测试页面。</h2>
+     {% for inline_page in inline_pages %}
+   <div class="tab-pane fade" id="{{inline_page.url_path}}">
+    {{inline_page | auto_content}}
+    <section><div class="ds-thread" id="comments"></div> </section>
    </div>
+     {% endfor %}
 </div> 
 
 {% endblock content %}

@@ -4,11 +4,17 @@
     <meta charset="utf-8">
     <title>{% block title %} {% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head_block %}{% endblock %}
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/template/css/code-highlight.css" rel="stylesheet">
-    <link href="/template/css/bootstrap.min.css" rel="stylesheet">
+    {% if site.configs.theme %}
+    <link href="/template/css/code-highlight.{{site.configs.theme}}.css" rel="stylesheet">
+    <link href="/template/css/bootstrap.min.{{site.configs.theme}}.css" rel="stylesheet">
+    {% else %}
+    <link href="/template/css/code-highlight.Default.css" rel="stylesheet">
+    <link href="/template/css/bootstrap.min.Default.css" rel="stylesheet">
+    {% endif %}
     <link href="/template/css/bootstrap.css" rel="stylesheet">
     <link href="/template/css/adjust.css" rel="stylesheet">
   <link href="/feed" type="application/atom+xml" rel="alternate" title="{{ site.configs.title or site.title }} RSS Feed" />
@@ -17,18 +23,18 @@
     <link rel="shortcut icon" href="http://files.xxdns.net/favicon.ico"  type="image/x-icon" />
   </head>
   <body class="preview" id="top" data-spy="scroll" data-target=".subnav" data-offset="80">
- <div class="navbar navbar-inverse navbar-fixed-top">
+ <div class="navbar navbar-{% if site.configs.themeset %}{{site.configs.themeset}}{% else %}default{% endif %} navbar-fixed-top">
    <div class="navbar-inner">
         <div class="container">
            <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-{% if site.configs.themeset %}{{site.configs.themeset}}{% else %}default{% endif %}-collapse">
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
        <a class="navbar-brand" href="/">{{site.configs.title or site.title}}</a>
      </div>
-         <div class="navbar-collapse collapse navbar-inverse-collapse">
+         <div class="navbar-collapse collapse navbar-{% if site.configs.themeset %}{{site.configs.themeset}}{% else %}default{% endif %}-collapse">
         <ul class="nav navbar-nav">
     <li><a href="/archive">Archives</a></li>
   {% if has('links.md') %}
@@ -40,10 +46,14 @@
     <a href="/category" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
     <ul class="dropdown-menu">
       {% for category in  sorted_by_position(categories) %}
+         {% set category_count = get_data(path=category.title,return_count=True) %}
+      {% if category_count %}
   <li><a href="/category/{{ category.path }}" title="posts in {{category.title}}">{{category.title}}</a></li>
+  {% endif %}
   {% endfor %}
     </ul>
   </li>
+  <li><a href="/read">Docs</a></li>
   {% endif %}
     {% if has('about.md') %}
   <li><a href="/about.md">About</a></li>

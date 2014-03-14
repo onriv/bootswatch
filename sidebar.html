@@ -25,19 +25,24 @@
   <div class="tab-pane fade active in" id="categories">
     <ul class="list-group">
       {% for category in  sorted_by_position(categories) %}
+      {% set category_count = get_data(path=category.title,return_count=True) %}
+      {% if category_count %}
   <li class="list-group-item">
-    <span class="badge">{{get_data(path=category.title,return_count=True)}}</span>
+    <span class="badge">{{category_count}}</span>
     <a href="/category/{{ category.path }}" title="posts in {{category.title}}">{{category.title}}</a>
   </li>
+  {% endif %}
   {% endfor %}
 </ul>
   </div>
   <div class="tab-pane fade" id="tags">
     <ul class="nav nav-pills">
       {% for tag_name, tag_count in site.tags %}
+      {% if tag_count %}
   <li>
     <a href="/tags/{{tag_name}}">{{tag_name}} <span class="badge">{{tag_count}}</span></a>
   </li>
+  {% endif %}
   {% endfor %}
 </ul>
   </div>
@@ -66,12 +71,15 @@
     <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade active in" id="Links">
 <ul class="list-group">
+  {% if site.configs.links %}
+  {% for link in site.configs.links %}
+    <li class="list-group-item"><a href="{{link.url}}" title="{{link.description}}">{{link.title}}</a></li>
+  {% endfor %}
+  {% else %}
   <li class="list-group-item">
-    <a href="http://sher-astro1.farbox.com">Single Fermion</a>
+    <a href="http://csh.farbox.com">CSH</a>
   </li>
-    <li class="list-group-item">
-    <a href="http://www.huapanda.net">二丁目</a>
-  </li>
+  {% endif %}
 </ul>
 </div>
 <div class="tab-pane fade" id="Meta">
