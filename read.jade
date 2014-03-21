@@ -33,7 +33,18 @@ body
 					raise_404
 	script(type="text/javascript")
 		function search(){
-            if (document.getElementById('search_value').value){ location.href='http://'+location.host+'/read?s='+document.getElementById('search_value').value}
-            else{ return false;}
-        }
-        window.onload = function(){ window.scroll(0, 0); }
+			if (document.getElementById('search_value').value){ location.href='http://'+location.host+'/read?s='+document.getElementById('search_value').value}
+			else{ return false;}
+		}
+		window.onload = function(){ window.scroll(0, 0); }
+	script(type="text/x-mathjax-config").
+		MathJax.Hub.Config({
+			extensions: ["tex2jax.js","http://sonoisa.github.io/xyjax_ext/fp.js"],
+			jax: ["input/TeX","output/HTML-CSS"],
+			"HTML-CSS": {
+					styles: {".MathJax_Preview": {visibility: "hidden"}}
+			},
+			tex2jax: {inlineMath: [["$","$"],["\\[","\\]"]]},
+			TeX: {extensions: ["AMSmath.js","AMSsymbols.js","http://sonoisa.github.io/xyjax_ext/xypic.js"]}
+		});
+	script(type="text/javascript", src="http://cdn.mathjax.org/mathjax/latest/MathJax.js")

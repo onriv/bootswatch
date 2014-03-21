@@ -11,7 +11,6 @@
   {% for inline_page in inline_pages %}
   <li><a href="#{{inline_page.url_path}}" data-toggle="tab">{{inline_page.title}}</a></li>
   {% endfor %}
-   {% set pages = get_data(type='post', status = 'page', with_page = False, sort='position') %}
 </ul>
 <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade active in" id="home">
@@ -30,7 +29,6 @@
      {% for inline_page in inline_pages %}
    <div class="tab-pane fade" id="{{inline_page.url_path}}">
     {{inline_page | auto_content}}
-    <section><div class="ds-thread" id="comments"></div> </section>
    </div>
      {% endfor %}
 </div> 

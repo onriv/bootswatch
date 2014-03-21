@@ -5,6 +5,9 @@
     <title>{% block title %} {% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block head_block %}{% endblock %}
+    <meta name="author" content="csh">
+    <meta name="google-site-verification" content="smHqHknKFGlb0kG9uJa8dW1XBT0S0lNMMDi43-4KDUk" />
+    <meta name="baidu-site-verification" content="qnhviNS01t" />
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -18,12 +21,12 @@
     <link href="/template/css/bootstrap.css" rel="stylesheet">
     <link href="/template/css/adjust.css" rel="stylesheet">
   <link href="/feed" type="application/atom+xml" rel="alternate" title="{{ site.configs.title or site.title }} RSS Feed" />
-  <link rel="author" href="https://plus.google.com/112302252902540661821/" />
-  <link rel="icon" type="image/gif" href="http://files.xxdns.net/favicon.gif">
-    <link rel="shortcut icon" href="http://files.xxdns.net/favicon.ico"  type="image/x-icon" />
+  <!-- <link rel="author" href="https://plus.google.com/112302252902540661821/" /> -->
+  <link rel="icon" type="image/gif" href="/favicon.jpg">
+    <link rel="shortcut icon" href="/favicon.ico"  type="image/x-icon" />
   </head>
-  <body class="preview" id="top" data-spy="scroll" data-target=".subnav" data-offset="80">
- <div class="navbar navbar-{% if site.configs.themeset %}{{site.configs.themeset}}{% else %}default{% endif %} navbar-fixed-top">
+  <body class="preview" id="top" data-spy="scroll" data-target=".subnav" data-offset="80" {% if site.configs.themefixed == yes %}style="padding-top: 70px;"{% endif %}>
+ <div class="navbar navbar-{% if site.configs.themeset %}{{site.configs.themeset}}{% else %}default{% endif %} {% if site.configs.themefixed == yes %}navbar-fixed-top{% endif %}">
    <div class="navbar-inner">
         <div class="container">
            <div class="navbar-header">
@@ -40,7 +43,7 @@
   {% if has('links.md') %}
     <li><a href="/links.md">Links</a></li>
   {% endif %} 
-  {% set categories = get_data(type='folder', level=[1,2], min_posts_count=1,with_page=False)%}
+  {% set categories = get_data(type='folder', level=1, min_posts_count=1,with_page=False)%}
   {% if categories %}
   <li class="dropdown">
     <a href="/category" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
@@ -53,7 +56,7 @@
   {% endfor %}
     </ul>
   </li>
-  <li><a href="/read">Docs</a></li>
+<!--   <li><a href="/read">Docs</a></li> -->
   {% endif %}
     {% if has('about.md') %}
   <li><a href="/about.md">About</a></li>
