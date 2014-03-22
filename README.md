@@ -1,3 +1,5 @@
+Demo: <csh.farbox.com>
+
 ### About the theme
 一个用了[bootswatch](http://bootswatch.com/)里面的样式的`farbox`主题。[bootswatch](http://bootswatch.com/)是一个基于[bootstrap](http://getbootstrap.com/)的开源主题站。
 
