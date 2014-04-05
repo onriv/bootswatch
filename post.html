@@ -13,6 +13,7 @@
 <meta name="Description" content="{{ post.title }}, {{post.tags}}, {{category_title}}, {{site.configs.description}}-{{site.title}}">
 {% endblock %}
 {% block content %}
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
       <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
       {{ post| auto_content }}
 	  <p class="text-info" align="right">Date: {{ post.date | date('%Y-%m-%d') }}; Category: <a href="/category/{{category_path}}">{{category_title}}</a>; Tags: {% if post.tags %}{% set current_tag = post.tags%} {%for tag in current_tag[:-1]%}<a href="/tags/{{tag}}">{{tag}}</a>, {%endfor%}<a href="/tags/{{current_tag[-1]}}">{{current_tag[-1]}}</a> {%endif%} 
@@ -42,4 +43,8 @@
 </ul>    
   </div>
 </div>   
+</div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        {% include 'sidebar.html' %}
+      </div>
 {% endblock %}

@@ -2,7 +2,7 @@
 {{ set_content_type('text/xml') }}
 <!-- sitemap-created="xym_g" -->
 <!-- generator="farbox" -->
-{% set posts = get_posts() %}
+{% set posts = get_posts(status=['public','doc']) %}
 {% if posts %}
 <!-- generated-on="{{ posts[0]['date'].strftime('%Y-%m-%dT%H:%M')}}" -->
 {% endif %}
@@ -16,11 +16,21 @@
     <priority>1.0</priority>
 </url>
 {% for post in posts %}
+{% if post.status == 'public' %}
 <url>
     <loc>http://{{ request.host }}{{ post.url }}</loc>
     <lastmod>{{ post.date.strftime('%Y-%m-%dT%H:%M:%S+00:00')}}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.2</priority>
 </url>
+{% endif %}
+{% if post.status == 'doc' %}
+<url>
+    <loc>http://{{ request.host }}/read/{{ post.url_path }}</loc>
+    <lastmod>{{ post.date.strftime('%Y-%m-%dT%H:%M:%S+00:00')}}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.2</priority>
+</url>
+{% endif %}
 {% endfor %}
 </urlset>

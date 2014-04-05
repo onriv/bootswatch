@@ -5,6 +5,7 @@
 <meta name="Description" content="{{ category.title }}, {{site.configs.description}}-{{site.title}}">
 {% endblock %}
 {% block content %}
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
     {% set posts = get_data(path=category.title, limit=50,pager_name="category") %}
     <h2>category: {{category.title}}</h2>
         <ul class="listing">
@@ -15,4 +16,8 @@
             </li>
         {% endfor %}    
         </ul> 
+</div>
+ <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        {% include 'sidebar.html' %}
+      </div>
 {% endblock %}

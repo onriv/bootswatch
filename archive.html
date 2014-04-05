@@ -11,6 +11,7 @@
     {% set entries = group(total_posts, 'date:year', reverse=True) %}
 {% endif %}
 {% block content %}
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
       <h2>Archives</h2>
 	  {% for year, posts in entries %}
         <ul class="listing">
@@ -22,6 +23,10 @@
         {% endfor %}    
         </ul>
 		 {% endfor %}
+</div>
+<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        {% include 'sidebar.html' %}
+      </div>
 {% endblock %}
 
 

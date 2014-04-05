@@ -56,9 +56,20 @@
   {% endfor %}
     </ul>
   </li>
-<!--   <li><a href="/read">Docs</a></li> -->
   {% endif %}
-    {% if has('about.md') %}
+  {% set docs = get_data( type='folder', path = 'docs/', level=1, min_posts_count=1,with_page=False)%}
+  {% if docs %}
+    <li class="dropdown">
+    <a href="/read/docs" class="dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+    {% for doc in sorted_by_position(docs) %}
+    <li><a href="/read/{{doc.path}}" target= "_blank" title="{{doc.title}}">{{doc.title}}</a></li>
+    {% endfor %}
+    </ul>
+  </li>
+  {% endif %} 
+
+  {% if has('about.md') %}
   <li><a href="/about.md">About</a></li>
   {% endif %}
   <li class="link feed"><a href="/feed">feed</a></li>
@@ -72,13 +83,8 @@
  </div>
 
     <div class="container">
-      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-        {% block content %}
-        {% endblock content %}
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        {% include 'sidebar.html' %}
-      </div>
+      {% block content %}
+      {% endblock content %}
       <div class="col-xs-12">
 <br><br><br><br>
      <!-- Footer

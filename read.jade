@@ -1,16 +1,19 @@
 doctype html
 head
-	title= post.title + site.title
+	post = post or category
+	title= post.title + ' | ' + site.title
 	load('/template/stylesheets/basic.css /template/stylesheets/main.scss')
 body
-	docs_path = 'docs/'
+	path_parts = post.full_path.split('/')
+	if path_parts.length > 2
+		docs_path = 'docs/'+path_parts[2]
 	{% from 'mixins' import no_cache_sidebar %}
 	{{ no_cache_sidebar(docs_path) }}
 	#main
-		.content_body 
+		.content_body
 			if request.args.s
 				h1 Results
-				posts = get_data(type='post', path=docs_path, keywords=request.args.s, sort='position', limit=50)
+				posts = get_data(type='post', path=docs_path, status = 'doc', keywords=request.args.s, sort='position', limit=50)
 				if posts
 					ul.posts_found
 						for post in posts
@@ -18,14 +21,13 @@ body
 								a(href='/read/{{post.url_path}}')= post.title
 				else
 					p Nothing Found
-			elif request.path == '/read'
+			elif request.path == '/read' or request.path == '/read/docs'
 				index_doc = get_doc(docs_path)
 				if index_doc and index_doc.content
 					{{ index_doc.content }}
 				else
 					p use <code>index.md</code> for your homepage.
 			else
-				post = post or category
 				if post
 					h1.title= post.title
 					post.content.without_toc
@@ -33,7 +35,7 @@ body
 					raise_404
 	script(type="text/javascript")
 		function search(){
-			if (document.getElementById('search_value').value){ location.href='http://'+location.host+'/read?s='+document.getElementById('search_value').value}
+			if (document.getElementById('search_value').value){ location.href='http://'+location.host+'/read/{{docs_path}}?s='+document.getElementById('search_value').value}
 			else{ return false;}
 		}
 		window.onload = function(){ window.scroll(0, 0); }
