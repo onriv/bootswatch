@@ -2,7 +2,7 @@
 {% block title %}{{ category.title }} - {{ site.configs.title or site.title }}{% endblock %}
 {% block head_block %}
 <meta name="Keywords" content="{{ category.title }}, {{site.configs.keywords}},{{site.title}}">
-<meta name="Description" content="{{ category.title }}, {{site.configs.description}}-{{site.title}}">
+<meta name="Description" content="{{ category.title }}, {{site.configs.full_description}}-{{site.title}}">
 {% endblock %}
 {% block content %}
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">

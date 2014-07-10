@@ -39,9 +39,7 @@
     <ul class="nav nav-pills">
       {% for tag_name, tag_count in site.tags %}
       {% if tag_count %}
-  <li>
-    <a href="/tags/{{tag_name}}">{{tag_name}} <span class="badge">{{tag_count}}</span></a>
-  </li>
+    <a href="/tags/{{tag_name}}">{{tag_name}}</a> 
   {% endif %}
   {% endfor %}
 </ul>
