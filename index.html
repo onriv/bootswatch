@@ -1,4 +1,10 @@
-{% extends 'base.html' %}
+{% if has('/demo/bootswatch.md') %}
+{% set theme = get_doc(path='/demo/bootswatch.md').metadata.theme  %}
+{% else %}
+{% set theme = site.configs.theme %}
+{% endif %}
+
+{% extends theme.prefix+'base.html' %}
 {% block title %}{{ site.configs.title or site.title }}{% endblock %}
 {% block head_block %}
 <meta name="Keywords" content="{{site.configs.keywords}},{{site.title}}">
@@ -6,35 +12,35 @@
 {% endblock %}
 {% block content %}
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
- <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-  {% set inline_pages = get_data(type='post', status = 'inline', limit=5, with_page = False, sort='position') %}
-  {% for inline_page in inline_pages %}
-  <li><a href="#{{inline_page.url_path}}" data-toggle="tab">{{inline_page.title}}</a></li>
-  {% endfor %}
-</ul>
-<div id="myTabContent" class="tab-content">
-  <div class="tab-pane fade active in" id="home">
-	{% set keys = request.args.get('s')%}
-	{% if keys %}
-	{% set posts = get_data( limit=site.configs.post_per_page,pager_name="keywords", keywords = keys) %}
-	{% else %}
-	{% set posts = get_data(limit=site.configs.post_per_page,pager_name="index") %}
-	{% endif %}
-  {% if posts %}
-  {% include "post_list.html" %}
-  {% endif %}
-  {% set paginator=get_paginator("index") %}
-  {% include "navigation.html" %}
-   </div>
-     {% for inline_page in inline_pages %}
-   <div class="tab-pane fade" id="{{inline_page.url_path}}">
-    {{inline_page | auto_content}}
-   </div>
-     {% endfor %}
-</div> 
-</div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        {% include 'sidebar.html' %}
+    <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+      <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+      {% set inline_pages = get_data(type='post', status = 'inline', limit=5, with_page = False, sort='position') %}
+      {% for inline_page in inline_pages %}
+        <li><a href="#{{inline_page.url_path}}" data-toggle="tab">{{inline_page.title}}</a></li>
+      {% endfor %}
+  </ul>
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active in" id="home">
+      {% set keys = request.args.get('s')%}
+      {% if keys %}
+      {% set posts = get_data(limit=site.configs.post_per_page, pager_name="keywords", keywords=keys) %}
+      {% else %}
+      {% set posts = get_data(limit=site.configs.post_per_page, pager_name="index") %}
+      {% endif %}
+      {% if posts %}
+      {% include theme.prefix+'post_list.html' %}
+      {% endif %}
+      {% set paginator=get_paginator("index") %}
+      {% include theme.prefix+'navigation.html' %}
+    </div>
+    {% for inline_page in inline_pages %}
+      <div class="tab-pane fade" id="{{inline_page.url_path}}">
+        {{inline_page | auto_content}}
       </div>
+    {% endfor %}
+  </div> 
+</div>
+<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+  {% include theme.prefix+'sidebar.html' %}
+</div>
 {% endblock content %}

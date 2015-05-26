@@ -7,7 +7,7 @@
         {% set rposts= get_data('/',type = 'post', limit = site.configs.rpost ,with_page=False) %}
         {% for post in rposts %}
   <li class="list-group-item">
-    <a href="{{post.url}}" title="{{post.title}}">{{post.title}}</a>
+    <a href="/{{theme.prefix}}post/{{theme.suffix}}{{post.url_path}}" title="{{post.title}}">{{post.title}}</a>
   </li>
   {% endfor %}
 </ul>
@@ -29,7 +29,7 @@
       {% if category_count %}
   <li class="list-group-item">
     <span class="badge">{{category_count}}</span>
-    <a href="/category/{{ category.path }}" title="posts in {{category.title}}">{{category.title}}</a>
+    <a href="/{{theme.prefix}}category/{{theme.suffix}}{{ category.path }}" title="posts in {{category.title}}">{{category.title}}</a>
   </li>
   {% endif %}
   {% endfor %}
@@ -39,7 +39,7 @@
     <ul class="nav nav-pills">
       {% for tag_name, tag_count in site.tags %}
       {% if tag_count %}
-    <a href="/tags/{{tag_name}}">{{tag_name}}</a> 
+    <a href="/{{theme.prefix}}tags/{{theme.suffix}}{{tag_name}}">{{tag_name}}</a> 
   {% endif %}
   {% endfor %}
 </ul>

@@ -1,12 +1,19 @@
-     {% set category = post.full_path.split('/') %}
-     {% if category[2] %}
-     {% set category_title = category[1] %}
-     {% set category_path = category[1] %}
-     {% else %}
-     {% set category_title = "未分类" %}
-     {% set category_path = "/" %}
-     {% endif %}
-{% extends "base.html" %}
+{% if has('/demo/bootswatch.md') %}
+{% set theme = get_doc(path='/demo/bootswatch.md').metadata.theme  %}
+{% else %}
+{% set theme = site.configs.theme %}
+{% endif %}
+
+{% set category = post.full_path.split('/') %}
+{% if category[2] %}
+{% set category_title = category[1] %}
+{% set category_path = category[1] %}
+{% else %}
+{% set category_title = "未分类" %}
+{% set category_path = "/" %}
+{% endif %}
+
+{% extends theme.prefix+'base.html' %}
 {% block title %}{{ post.title }} - {{ site.configs.title or site.title }}{% endblock %}
 {% block head_block %}
 <meta name="Keywords" content="{{ post.title }}, {{post.tags}}, {{category_title}} ,  {{site.configs.keywords}},{{site.title}}">
@@ -14,7 +21,7 @@
 {% endblock %}
 {% block content %}
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+      <h2><a href="/{{theme.prefix}}post/{{theme.suffix}}{{post.url_path}}">{{ post.title }}</a></h2>
       {{ post| auto_content }}
 	  <p class="text-info" align="right">Date: {{ post.date | date('%Y-%m-%d') }}; Category: <a href="/category/{{category_path}}">{{category_title}}</a>; Tags: {% if post.tags %}{% set current_tag = post.tags%} {%for tag in current_tag[:-1]%}<a href="/tags/{{tag}}">{{tag}}</a>, {%endfor%}<a href="/tags/{{current_tag[-1]}}">{{current_tag[-1]}}</a> {%endif%} 
       </p>
@@ -37,7 +44,7 @@
       {% for post in  posts %}
   <li class="list-group-item">
     <span class="badge"></span>
-    <a href="{{ post.url }}" title="{{post.title}}">{{post.title}}</a>
+    <a href="/{{theme.prefix}}post/{{theme.suffix}}{{post.url_path}}" title="{{post.title}}">{{post.title}}</a>
   </li>
   {% endfor %}
 </ul>    
@@ -45,6 +52,6 @@
 </div>   
 </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        {% include 'sidebar.html' %}
+        {% include theme.prefix+'sidebar.html' %}
       </div>
 {% endblock %}
